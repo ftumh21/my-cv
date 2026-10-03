@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatimh Portfolio - Space & Solar Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600;700&family=JetBrains+Mono:wght@300;400;600;700&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #030712;
+            --card-bg: rgba(17, 24, 39, 0.75);
+            --text-color: #f3f4f6;
+            --accent-color: #38bdf8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Ctext x='0' y='20' font-size='20'%3E🌕%3C/text%3E%3C/svg%3E"), auto;
+        }
+
+        body.light-solar-mode {
+            --bg-color: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --text-color: #0f172a;
+            --accent-color: #d97706;
+            --border-color: rgba(217, 119, 6, 0.25);
+            --custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Ctext x='0' y='20' font-size='20'%3E☀️%3C/text%3E%3C/svg%3E"), auto;
+        }
+
+        body, body * {
+            cursor: var(--custom-cursor);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Tajawal', monospace !important;
+        }
+
+        button, a, input, textarea, select, label, .card-item {
+            cursor: pointer !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background 0.4s ease, color 0.4s ease, border 0.4s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #spaceCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-action {
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        <a href="#portfolio" class="btn-action" style="text-decoration: none; display: inline-block;" data-en="Explore Works" data-ar="استكشف أعمالي">Explore Works</a>
+
+
+</div>
+/* تنسيق الأيقونات الدائرية المتناسقة مع جو الموقع الفضائي */
+.social-icon-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    background-color: rgba(0, 168, 255, 0.1);
+    color: #00a8ff;
+    border: 1px solid rgba(0, 168, 255, 0.3);
+    border-radius: 50%;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* تأثير التفاعل عند تمرير الماوس */
+.social-icon-btn:hover {
+    background-color: #00a8ff;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.4);
+}
+
+/* توافق الأيقونات مع وضع السطوع (Light Mode) */
+body.light-mode .social-icon-btn,
+html[data-theme="light"] .social-icon-btn,
+.light .social-icon-btn {
+    background-color: rgba(217, 119, 6, 0.1);
+    color: #d97706;
+    border-color: rgba(217, 119, 6, 0.3);
+}
+
+body.light-mode .social-icon-btn:hover,
+html[data-theme="light"] .social-icon-btn:hover,
+.light .social-icon-btn:hover {
+    background-color: #d97706;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+}
+        /* تأثير الشعاع أو الوهج الخلفي لزر اكتشف أعمالي */
+        .hero-content .btn-action {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* إنشاء طبقة الشعاع الخلفية */
+        .hero-content .btn-action::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background: var(--accent-color);
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0.35;
+            filter: blur(10px);
+            transition: opacity 0.3s ease;
+        }
+
+        /* زيادة توهج الشعاع قليلاً عند مرور الماوس عليه */
+        .hero-content .btn-action:hover::after {
+            opacity: 0.7;
+        }
+
+        section {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .card-item:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .card-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .card-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .cv-file-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px dashed var(--border-color);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .cv-preview-box {
+            width: 100%;
+            max-width: 700px;
+            height: 500px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cv-preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 650px;
+            padding: 30px;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+     .slider-container {
+            position: relative;
+            width: 100%;
+            height: 350px; /* قمنا بتكبير ارتفاع الصندوق قليلاً ليتناسب مع صور الموقع */
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.4); /* خلفية داكنة خفيفة لتوضيح الأجزاء الفارغة إن وجدت */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* هذه الخاصية هي السر لجعل الصورة تظهر كاملة بدون قص */
+            display: none;
+        }
+
+        .slider-img.active {
+            display: block;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border-radius: 50%;
+        }
+
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        .modal-desc-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 14px;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        @media(max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; }
+            nav ul { display: none; }
+        }
+        .cv-section {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.cv-section h3 {
+    color: #c90e0e;
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+}
+
+.cv-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #c55d08; /* لون أزرق متناسق مع موقعك */
+    color: #7c1010;
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(211, 124, 9, 0.4);
+    transition: all 0.3s ease;
+}
+
+.cv-download-btn:hover {
+    background-color: #ce6108;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(210, 117, 10, 0.6);
+}
+
+.cv-section {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+/* العنوان: سيأخذ نفس تنسيق ولون باقي عناوين الموقع تلقائياً في الوضعين */
+/* تنسيق عام للعنوان يتأثر تلقائياً بلون الموقع */
+.cv-heading {
+    color: inherit !important; /* يرث لون العناوين في الصفحة تلقائياً */
+}
+
+/* زر الوضع الليلي (الافتراضي) */
+.cv-download-btn {
+    background-color: #00a8ff;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.4);
+}
+
+.cv-download-btn:hover {
+    background-color: #2f1683;
+    transform: translateY(-3px);
+}
+
+/* ألوان زر وضع السطوع (تتفاعل مع أي كلاس فاتح محتمل للموقع) */
+body.light-mode .cv-download-btn,
+html[data-theme="light"] .cv-download-btn,
+.light .cv-download-btn {
+    background-color: #e07e0f !important; /* برتقالي متناسق مع تصميم النهار */
+    color: #cc7116 !important;
+    box-shadow: 0 4px 15px rgba(186, 115, 9, 0.3);
+}
+/* تصغير جميع صور المشاريع داخل قسم الأ اعمال/البطاقات لتناسب المربعات تماماً */
+#portfolio img, 
+.portfolio img, 
+.card-item img {
+    width: 100px !important;    /* عرض صغير ومرتب (يمكنك تعديل الرقم لو أردتِ أكبر بقليل مثل 120px) */
+    height: auto !important;   /* الحفاظ على أبعاد الصورة الأصلية بدون تشوه */
+    max-height: 120px !important; /* أقصى ارتفاع لكي لا تكون طويلة عمودياً */
+    object-fit: contain !important;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto 10px auto;  /* توسيط الصورة داخل المربع */
+}
+/* --- الوضع الليلي (Dark Mode) - الافتراضي --- */
+.social-glow-box {
+    background-color: rgba(0, 168, 255, 0.05);
+    border: 1px solid rgba(0, 168, 255, 0.4);
+    box-shadow: 0 0 15px rgba(0, 168, 255, 0.2);
+}
+
+.social-glow-box p {
+    color: #82add6;
+    text-shadow: 0 0 10px rgba(38, 2, 71, 0.6);
+}
+
+.social-icon-item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 168, 255, 0.15);
+    color: #ffffff;
+    border: 1px solid #1d0b9e;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0, 168, 255, 0.4);
+    transition: 0.3s;
+}
+
+/* --- وضع السطوع / النهار (Light Mode) --- */
+body.light-mode .social-glow-box,
+html[data-theme="light"] .social-glow-box,
+.light .social-glow-box {
+    background-color: rgba(217, 119, 6, 0.05);
+    border: 1px solid rgba(217, 119, 6, 0.4);
+    box-shadow: 0 0 15px rgba(183, 97, 4, 0.2);
+}
+
+body.light-mode .social-glow-box p,
+html[data-theme="light"] .social-glow-box p,
+.light .social-glow-box p {
+    color: #c56817 !important;
+    text-shadow: 0 0 8px rgba(217, 119, 6, 0.4);
+}
+
+body.light-mode .social-icon-item,
+html[data-theme="light"] .social-icon-item,
+.light .social-icon-item {
+    background-color: rgba(217, 119, 6, 0.15);
+    color: #d97706;
+    border: 1px solid #d97706;
+    box-shadow: 0 0 10px rgba(217, 119, 6, 0.3);
+}
+    </style>
+</head>
+<body>
+
+    <canvas id="spaceCanvas"></canvas>
+
+    <header>
+        <div class="logo">Fatimh.space()</div>
+        <nav>
+            <ul>
+                <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="#about" data-en="About" data-ar="عني">About</a></li>
+                <li><a href="#cv" data-en="CV" data-ar="السيرة الذاتية">CV</a></li>
+                <li><a href="#portfolio" data-en="Portfolio" data-ar="الأعمال">Portfolio</a></li>
+                <li><a href="#contact" data-en="Contact" data-ar="اتصل بي">Contact</a></li>
+            </ul>
+        </nav>
+       <div class="controls">
+            <!-- أيقونات مواقع التواصل الاجتماعي -->
+            
+            <button id="themeToggle" class="theme-toggle-btn" title="Toggle Space/Solar Theme">🌙</button>
+            <button id="langToggle" class="btn-action">AR</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 data-en="Welcome to My Programming World" data-ar="أهلًا بك في عالمي البرمجي">Welcome to My Programming World</h1>
+                <p data-en="A space where I share my passion for programming and software development, turning ideas into innovative and practical digital solutions." data-ar="مساحة أشارك فيها شغفي بالبرمجة وتطوير البرمجيات، وأسعى لتحويل الأفكار إلى حلول تقنية مبتكرة وعملية.">A space where I share my passion for programming and software development, turning ideas into innovative and practical digital solutions.</p>
+                <a href="#portfolio" class="btn-action" style="text-decoration: none; display: inline-block;" data-en="Explore Works" data-ar="استكشف أعمالي">Explore Works</a>
+          
+            </div>
+<!-- حاوية التواصل المتوهجة تحت زر اكتشف أعمالي -->
+<div class="social-glow-box" style="margin-top: 25px; display: inline-block; padding: 15px 20px; border-radius: 15px; transition: 0.3s;">
+    <!-- عبارة تواصل معي مع الترجمة -->
+    <p style="margin-bottom: 12px; font-size: 0.95rem; font-family: 'Courier New', Courier, monospace; text-align: center;" data-en="Connect with me:" data-ar="تواصل معي عبر:">تواصل معي عبر:</p>
+    
+    <!-- الأيقونات -->
+    <div style="display: flex; gap: 15px; align-items: center; justify-content: center;">
+        <!-- إنستغرام -->
+        <a href="https://instagram.com/your-instagram-username" target="_blank" class="social-icon-item" title="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+        </a>
+        
+        <!-- لينكد إن -->
+        <a href="https://www.linkedin.com/in/fatimh-%E2%80%98-7aba5a43a/" target="_blank" class="social-icon-item" title="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+        </a>
+        
+        <!-- البريد الإلكتروني -->
+        <a href="mailto:fftumh@gmail.com" class="social-icon-item" title="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+        </a>
+    </div>
+</div>
+</div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2 data-en="About Me" data-ar="نبذة عني">About Me</h2>
+            <div class="card-item">
+                <p data-en="A Computer Programming and Web Development student passionate about improving my technical skills and creating digital projects that combine creativity and usability." data-ar="متخصصة في برمجة الحاسب وتطوير الويب، مهتمة بتطوير مهاراتي وبناء مشاريع رقمية تجمع بين الإبداع وسهولة الاستخدام.">
+A Computer Programming and Web Development student passionate about improving my technical skills and creating digital projects that combine creativity and usability.                </p>
+            </div>
+        </section>
+<div class="cv-section" style="text-align: center; padding: 50px 20px;">
+    <!-- عنوان السيرة الذاتية -->
+    <h3 class="cv-heading"
+        data-ar="معاينة السيرة الذاتية الرسمية لفاطمة معتوق قندوس"
+        data-en="Official Resume Preview for Fatimh Matouq Qandoos"
+        style="margin-bottom: 25px; font-size: 1.3rem; font-weight: bold; font-family: 'Courier New', Courier, monospace;">
+        معاينة السيرة الذاتية الرسمية لفاطمة معتوق قندوس
+    </h3>
+    
+    <!-- زر التحميل -->
+    <a href="images/mycv.pdf" target="_blank" class="cv-download-btn"
+       style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; font-size: 1.1rem; font-weight: bold; font-family: 'Courier New', Courier, monospace; text-decoration: none; border-radius: 30px; transition: all 0.3s ease;">
+        <i class="fas fa-file-pdf"></i>
+        <span class="btn-label"
+              data-ar="عرض أو تحميل السيرة الذاتية (PDF)"
+              data-en="View or Download CV (PDF)">
+            عرض أو تحميل السيرة الذاتية (PDF)
+        </span>
+    </a>
+</div>
+
+            </div>
+        </section>
+
+<!-- Portfolio Section -->
+        <section id="portfolio">
+            <h2 data-en="Previous Works & Portfolio" data-ar="الأعمال السابقة والمشاريع">Previous Works & Portfolio</h2>
+            <div class="grid-cards">
+                <!-- المشروع الأول: غراس (3 صور) -->
+                <div class="card-item" onclick="openProjectModal(
+                    {ar: '🌿 موقع غراس', en: '🌿 Ghras Website'}, 
+                    {ar: 'موقع إلكتروني تعليمي يهدف إلى التعريف بعالم النباتات وأنواعها وفوائدها وطرق العناية بها. يوفر الموقع معلومات مبسطة عن النباتات المنزلية والطبية والعطرية، مع صور توضيحية وإرشادات تساعد الزوار على اختيار النبات المناسب ومعرفة كيفية العناية به بطريقة صحيحة.', en: 'An educational website aimed at introducing the world of plants, their types, benefits, and care methods. It provides simplified information about indoor, medicinal, and aromatic plants with illustrations and tips.'}, 
+                    ['images/a.jpeg', 'images/b.jpeg', 'images/s.jpeg']
+                )">
+                    <div class="card-img-box">
+                        <img src="images/s.jpeg" alt="Ghras Project">
+                    </div>
+                    <h3 data-en="🌿 Ghras Website" data-ar="🌿 موقع غراس">🌿 موقع غراس</h3>
+                    <p data-en="Click to view project details..." data-ar="انقر لعرض تفاصيل المشروع...">انقر لعرض تفاصيل المشروع...</p>
+                </div>
+
+                <!-- المشروع الثاني: مستشار النوم الشخصي (صورة واحدة) -->
+                <div class="card-item" onclick="openProjectModal(
+                    {ar: '💤 موقع مستشار النوم الشخصي', en: '💤 Personal Sleep Consultant'}, 
+                    {ar: 'هو تطبيق ذكي يساعد المستخدمين على تحسين جودة نومهم من خلال تحليل البيانات البيو مترية وتقديم توصيات مخصصة. يعتمد التطبيق على الذكاء الاصطناعي لتحليل أنماط النوم واقتراح حلول فردية لكل مستخدم، مما يسهم في تحسين صحتهم العامة.', en: 'A smart application helping users improve sleep quality by analyzing biometric data and providing tailored recommendations using AI to analyze sleep patterns.'}, 
+                    ['images/d.jpeg']
+                )">
+                    <div class="card-img-box">
+                        <img src="images/d.jpeg" alt="Sleep Consultant Project">
+                    </div>
+                    <h3 data-en="💤 Personal Sleep Consultant" data-ar="💤 موقع مستشار النوم الشخصي">💤 موقع مستشار النوم الشخصي</h3>
+                    <p data-en="Click to view project details..." data-ar="انقر لعرض تفاصيل المشروع...">انقر لعرض تفاصيل المشروع...</p>
+                </div>
+
+                <!-- المشروع الثالث: الانتظار الذكي (4 صور) -->
+                <div class="card-item" onclick="openProjectModal(
+                    {ar: '⏱️ الانتظار الذكي (WaitLess)', en: '⏱️ WaitLess Project'}, 
+                    {ar: 'يأتي مشروع قائمة الانتظار الذكية (WaitLess) تماشيًا مع رؤية السعودية 2030 التي تهدف إلى تعزيز التحول الرقمي وتحسين جودة الحياة. يقدّم المشروع حلاً تقنيًا ذكيًا لتنظيم طوابير الانتظار في المطاعم، مما يساهم في تقليل الازدحام ورفع كفاءة الخدمات وتحسين تجربة العملاء.', en: 'The WaitLess project aligns with Saudi Vision 2030, offering a smart technical solution to organize restaurant queues, reduce congestion, and enhance customer experience.'}, 
+                    ['images/k.jpeg', 'images/z.jpeg', 'images/e.jpeg']
+                )">
+                    <div class="card-img-box">
+                        <img src="images/k.jpeg" alt="WaitLess Project">
+                    </div>
+                    <h3 data-en="⏱️ WaitLess Project" data-ar="⏱️ الانتظار الذكي (WaitLess)">⏱️ الانتظار الذكي (WaitLess)</h3>
+                    <p data-en="Click to view project details..." data-ar="انقر لعرض تفاصيل المشروع...">انقر لعرض تفاصيل المشروع...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 data-en="Contact Me" data-ar="اتصل بي">Contact Me</h2>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully! 🚀');">
+                <div class="form-group">
+                    <label data-en="Your Name" data-ar="اسمك الكريم">Your Name</label>
+                    <input type="text" required placeholder="Fatimh...">
+                </div>
+                <div class="form-group">
+                    <label data-en="Your Email" data-ar="بريدك الإلكتروني">Your Email</label>
+                    <input type="email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label data-en="Your Message" data-ar="رسالتك">Your Message</label>
+                    <textarea rows="5" required placeholder="Write your message here..."></textarea>
+                </div>
+                <button type="submit" class="btn-action" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Project Details Modal with Image Slider -->
+    <div class="modal-overlay" id="projectModal" onclick="closeProjectModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProjectModalDirect()">&times;</button>
+            <h2 id="modalTitle" style="border:none; margin-bottom:0; padding-bottom:0;">Project Title</h2>
+            
+            <div class="slider-container" id="sliderContainer">
+                <button class="slider-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="slider-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
+            </div>
+
+            <div class="modal-desc-box" id="modalDesc">
+                Project explanation and description goes here...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('spaceCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let stars = [];
+        let yellowParticles = [];
+        const numStars = 150;
+        const numParticles = 40;
+        let rayAngle = 0;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 1.5,
+                vx: (Math.random() - 0.5) * 0.2,
+                vy: (Math.random() - 0.5) * 0.2,
+                alpha: Math.random()
+            });
+        }
+
+        for (let i = 0; i < numParticles; i++) {
+            yellowParticles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 3 + 1,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5 - 0.2,
+                alpha: Math.random() * 0.7 + 0.3
+            });
+        }
+
+        function animateBackground() {
+            ctx.clearRect(0, 0, width, height);
+            const isLight = document.body.classList.contains('light-solar-mode');
+
+            if (isLight) {
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(0, 0, width, height);
+                const sunX = width - 90;
+                const sunY = 90;
+
+                ctx.save();
+                ctx.translate(sunX, sunY);
+                ctx.rotate(rayAngle);
+                rayAngle += 0.006;
+                ctx.strokeStyle = 'rgba(217, 119, 6, 0.3)';
+                ctx.lineWidth = 3;
+                const numRays = 14;
+                for (let i = 0; i < numRays; i++) {
+                    ctx.rotate((Math.PI * 2) / numRays);
+                    ctx.beginPath();
+                    ctx.moveTo(40, 0);
+                    ctx.lineTo(85, 0);
+                    ctx.stroke();
+                }
+                ctx.restore();
+
+                let sunGrad = ctx.createRadialGradient(sunX, sunY, 10, sunX, sunY, 100);
+                sunGrad.addColorStop(0, 'rgba(251, 191, 36, 0.85)');
+                sunGrad.addColorStop(0.5, 'rgba(245, 158, 11, 0.35)');
+                sunGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctx.fillStyle = sunGrad;
+                ctx.beginPath();
+                ctx.arc(sunX, sunY, 100, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#f59e0b';
+                ctx.beginPath();
+                ctx.arc(sunX, sunY, 40, 0, Math.PI * 2);
+                ctx.fill();
+
+                yellowParticles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(245, 158, 11, ${p.alpha})`;
+                    ctx.fill();
+                });
+            } else {
+                ctx.fillStyle = '#030712';
+                ctx.fillRect(0, 0, width, height);
+                stars.forEach(s => {
+                    s.x += s.vx;
+                    s.y += s.vy;
+                    if (s.x < 0) s.x = width;
+                    if (s.x > width) s.x = 0;
+                    if (s.y < 0) s.y = height;
+                    if (s.y > height) s.y = 0;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+                    ctx.fill();
+                });
+            }
+            requestAnimationFrame(animateBackground);
+        }
+        animateBackground();
+
+        let currentImages = [];
+        let currentSlideIndex = 0;
+        let lastTitleObj = null;
+        let lastDescObj = null;
+
+        function openProjectModal(titleObj, descObj, images) {
+            lastTitleObj = titleObj;
+            lastDescObj = descObj;
+            
+            document.getElementById('modalTitle').textContent = titleObj[currentLang];
+            document.getElementById('modalDesc').textContent = descObj[currentLang];
+            
+            currentImages = images;
+            currentSlideIndex = 0;
+            renderSliderImages();
+            document.getElementById('projectModal').classList.add('active');
+        }
+
+        function renderSliderImages() {
+            const container = document.getElementById('sliderContainer');
+            const existingImgs = container.querySelectorAll('.slider-img');
+            existingImgs.forEach(img => img.remove());
+
+            currentImages.forEach((src, index) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'slider-img' + (index === 0 ? ' active' : '');
+                container.insertBefore(img, container.firstChild);
+            });
+        }
+
+        function changeSlide(direction) {
+            const imgs = document.querySelectorAll('.slider-img');
+            if (imgs.length === 0) return;
+            imgs[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (currentSlideIndex + direction + imgs.length) % imgs.length;
+            imgs[currentSlideIndex].classList.add('active');
+        }
+
+        function closeProjectModal(e) {
+            if (e.target.id === 'projectModal') {
+                document.getElementById('projectModal').classList.remove('active');
+            }
+        }
+
+        function closeProjectModalDirect() {
+            document.getElementById('projectModal').classList.remove('active');
+        }
+
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-solar-mode');
+            if (document.body.classList.contains('light-solar-mode')) {
+                themeToggle.innerHTML = '☀️';
+            } else {
+                themeToggle.innerHTML = '🌙';
+            }
+        });
+
+        const langToggle = document.getElementById('langToggle');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            langToggle.textContent = currentLang === 'en' ? 'AR' : 'EN';
+            document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.setAttribute('lang', currentLang);
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+
+            // تحديث محتوى النافذة المنسدلة إذا كانت مفتوحة حالياً
+            if (lastTitleObj && lastDescObj) {
+                document.getElementById('modalTitle').textContent = lastTitleObj[currentLang];
+                document.getElementById('modalDesc').textContent = lastDescObj[currentLang];
+            }
+        });
+    </script>        
+</body>
+</html>
