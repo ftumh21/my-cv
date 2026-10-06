@@ -626,6 +626,12 @@ html[data-theme="light"] .social-icon-item,
         <a href="mailto:fftumh@gmail.com" class="social-icon-item" title="Email">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
         </a>
+       <!-- GitHub -->
+<a href="https://github.com/ftumh21" target="_blank" class="social-icon-item" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+    </svg>
+</a>
     </div>
 </div>
 </div>
@@ -708,26 +714,179 @@ A Computer Programming and Web Development student passionate about improving my
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2 data-en="Contact Me" data-ar="اتصل بي">Contact Me</h2>
-            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully! 🚀');">
-                <div class="form-group">
-                    <label data-en="Your Name" data-ar="اسمك الكريم">Your Name</label>
-                    <input type="text" required placeholder="Fatimh...">
-                </div>
-                <div class="form-group">
-                    <label data-en="Your Email" data-ar="بريدك الإلكتروني">Your Email</label>
-                    <input type="email" required placeholder="name@example.com">
-                </div>
-                <div class="form-group">
-                    <label data-en="Your Message" data-ar="رسالتك">Your Message</label>
-                    <textarea rows="5" required placeholder="Write your message here..."></textarea>
-                </div>
-                <button type="submit" class="btn-action" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
-            </form>
-        </section>
+<!-- قسم التواصل (Contact Me) -->
+<div class="contact-section-wrapper" id="contact">
+    <div class="space-card">
+        <div class="section-title" data-en="# Contact Me" data-ar="# تواصل معي"># Contact Me</div>
+        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+            
+            <!-- مفتاح الـ Web3Forms الخاص بك -->
+            <input type="hidden" name="access_key" value="d6eb6506-c0ae-4a4d-bf6c-2a22d72978d7">
+
+            <div class="form-group">
+                <label data-en="Your Name" data-ar="اسمك الكريم">Your Name</label>
+                <input type="text" name="name" required placeholder="" data-en-placeholder="Enter your name..." data-ar-placeholder="أدخل اسمك الكريم...">
+            </div>
+
+            <div class="form-group">
+                <label data-en="Your Email" data-ar="بريدك الإلكتروني">Your Email</label>
+                <input type="email" name="email" required placeholder="" data-en-placeholder="Enter your email..." data-ar-placeholder="أدخل بريدك الإلكتروني...">
+            </div>
+
+            <div class="form-group">
+                <label data-en="Your Message" data-ar="رسالتك">Your Message</label>
+                <textarea name="message" rows="4" required placeholder="" data-en-placeholder="Type your message here..." data-ar-placeholder="اكتب رسالتك هنا..."></textarea>
+            </div>
+
+            <button type="submit" class="sun-square-btn" data-en="Send" data-ar="إرسال">Send</button>
+        </form>
     </div>
+</div>
+
+<!-- تنسيقات الـ CSS الخاصة بقسم التواصل مطابقة لكروت المشاريع العلوية -->
+<style>
+/* الحاوية لتوسيط الكارد وجعله بمقاس معتدل في المنتصف */
+.contact-section-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 20px !important;
+}
+
+/* الكارد بالوضع الليلي (بنفس تصميم الكروت العلوية ولكن بشفافية أعلى قليلاً) */
+.contact-section-wrapper .space-card {
+    width: 100% !important;
+    max-width: 550px !important;
+    background: rgba(15, 23, 42, 0.45) !important; /* شفافة وناعمة */
+    border: 1px solid rgba(56, 189, 248, 0.2) !important;
+    border-radius: 12px !important;
+    padding: 30px !important;
+    position: relative !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* الكارد في وضع السطوع (مطابق للكروت العلوية النهارية مع شفافة أنيقة) */
+body.light-mode .contact-section-wrapper .space-card,
+html.light-mode .contact-section-wrapper .space-card,
+.light-mode .contact-section-wrapper .space-card {
+    background: rgba(244, 80, 10, 0.55) !important; /* شفافة وواضحة مثل كروت فوق */
+    border: 1px solid rgba(157, 30, 11, 0.25) !important;
+    box-shadow: 0 10px 30px rgba(216, 94, 12, 0.08) !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+.space-card::after {
+    content: "// fatimh.space.init()" !important;
+    position: absolute !important;
+    top: 15px !important;
+    left: 20px !important;
+    font-family: monospace !important;
+    font-size: 0.75rem !important;
+    color: #03104d !important;
+}
+
+body.light-mode .space-card::after,
+.light-mode .space-card::after {
+    color: #ea580c !important;
+}
+
+.section-title {
+    color: #38bdf8 !important;
+    font-size: 1.3rem !important;
+    font-weight: bold !important;
+    margin-bottom: 15px !important;
+    font-family: monospace !important;
+}
+
+body.light-mode .section-title,
+.light-mode .section-title {
+    color: #ea580c !important;
+}
+
+.contact-form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+    margin-top: 10px !important;
+}
+
+.form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+.form-group label {
+    color: #0a216f !important;
+    font-size: 0.9rem !important;
+}
+
+body.light-mode .form-group label,
+.light-mode .form-group label {
+    color: #c2410c !important;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100% !important;
+    padding: 12px !important;
+    background: rgba(5, 11, 20, 0.4) !important;
+    border: 1px solid rgba(231, 146, 27, 0.25) !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    outline: none !important;
+    font-family: 'Tajawal', sans-serif !important;
+}
+
+/* حقول الإدخال في وضع النهار (شفافة ومريحة) */
+body.light-mode .form-group input,
+body.light-mode .form-group textarea,
+.light-mode .form-group input,
+.light-mode .form-group textarea {
+    background: rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(241, 238, 18, 0.3) !important;
+    color: #d6b006 !important;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: #28e567 !important;
+    box-shadow: 0 0 10px rgba(251, 146, 60, 0.25) !important;
+}
+
+.form-group textarea {
+    resize: vertical !important;
+}
+
+/* زر إرسال مربع، واضح، مشمس ومريح */
+.sun-square-btn {
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.95), rgba(234, 88, 12, 0.95)) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(89, 140, 31, 0.3) !important;
+    width: 95px !important;
+    height: 42px !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    box-shadow: 0 0 12px rgba(251, 146, 60, 0.35) !important;
+    backdrop-filter: blur(4px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-top: 5px !important;
+    font-family: 'Tajawal', sans-serif !important;
+    transition: transform 0.2s ease !important;
+}
+
+.sun-square-btn:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 18px rgba(251, 146, 60, 0.55) !important;
+}
+</style>
+
 
     <!-- Project Details Modal with Image Slider -->
     <div class="modal-overlay" id="projectModal" onclick="closeProjectModal(event)">
@@ -929,7 +1088,6 @@ A Computer Programming and Web Development student passionate about improving my
                 el.textContent = el.getAttribute(`data-${currentLang}`);
             });
 
-            // تحديث محتوى النافذة المنسدلة إذا كانت مفتوحة حالياً
             if (lastTitleObj && lastDescObj) {
                 document.getElementById('modalTitle').textContent = lastTitleObj[currentLang];
                 document.getElementById('modalDesc').textContent = lastDescObj[currentLang];
